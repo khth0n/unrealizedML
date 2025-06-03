@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+version = "0.0.0"
+name = "unrealizedML"
+authors = [
+	{ name = "Isaiah Cordova", email = "isaiah.cordova21@gmail.com" }
+]
+readme = "README.md"
+description = "A well-documented implementation of unrealized ML algorithms and architectures."
+requires-python = ">=3.13"
+dependencies = [
+	"torch",
+	"numpy",
+	"matplotlib"
+]
+
+[project.urls]
+Homepage = "https://github.com/khth0n/unrealizedML"
+Repository = "https://github.com/khth0n/unrealizedML.git"
+Issues = "https://github.com/khth0n/unrealizedML/issues"

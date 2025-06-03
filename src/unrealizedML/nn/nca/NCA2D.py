@@ -12,6 +12,8 @@ import matplotlib.pyplot as plt
 from SepConv2D import SepConv2d
 from NonSepConv2D import NonSepConv2d
 
+rng = np.random.default_rng(0)
+
 class NCAPerception2d(nn.Module):
     
     def __init__(self, in_channels: int, learned_filters: int, device):
@@ -99,14 +101,17 @@ class NCALearner2d(nn.Module):
     
     def forward(self, x: torch.Tensor):
         
-        # Stochastic update to reduce overfitting.
+        # Stochastic update to reduce overfitting during training.
         # Using a random binary mask for the update helps learn
         # parameters that result in more effective NCA rules.
-        mask_shape = (x.shape[0], 1, x.shape[2], x.shape[3])
-        rolls = torch.rand(mask_shape, device=self.DEVICE)
-        mask = (rolls > 0.5).float() 
+        with torch.no_grad():
+            mask_shape = (x.shape[0], 1, x.shape[2], x.shape[3])
+            rolls = torch.rand(mask_shape, device=self.DEVICE)
+            mask = (rolls > 0.5).float() 
+            
+            return self.layers(x) * mask
         
-        return self.layers(x) * mask
+        return self.layers(x)
     
 class NCA2d(nn.Module):
     """

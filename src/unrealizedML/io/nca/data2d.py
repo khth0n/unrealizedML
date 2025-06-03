@@ -14,11 +14,7 @@ def pickle_dir(in_dir: Path, chunksize: int, out: Path):
     chunk = 0
     chunk_data = None
     
-    print(file_list)
-    
     chunks = int(np.round(len(file_list) / chunksize))
-    
-    print(chunks)
     
     for chunk in range(chunks):
         
